@@ -1,0 +1,48 @@
+# This playbook is used to register the RHEL 8 and RHEL 9 servers to Redhat satellite.
+# Register the servers to satellite based on the environment and kernel version of the servers.
+
+hosts: fiannce_servers
+become: true
+gather_facts: yes
+tasks:
+- name: checking hostname        # This task will give the server name
+  shell: uname -n
+  register: hostname  # used to store the server name
+- debug: msg="{{ hostname.stdout }}"
+- set_fact:
+    env : "dev"
+  when: hostname.stdout.find("dev") != -1    # if server name contains dev in it then it belongs to dev environment and by using set_fact we can set the env as dev
+- set_fact:
+    env : "test"
+  when: hostname.stdout.find("tst") != -1
+- set_fact:
+    env : "uat"
+  when: hostname.stdout.find("uat") != -1
+- set_fact:
+    env : "prd"
+  when: hostname.stdout.find("prd") != -1
+- set_fact:
+    env : "prd"
+  when: hostname.stdout.find("dcc") != -1
+- name: remove katello.facts file
+  shell: rm -rf /etc/rhsm/facts/katello.facts
+  ignore_errors: yes  # if katello file is not present then ignore the errors
+- name: installing katello agent
+  shell: rpm -Uvh http://satellite_server/pub/katello-ca-consumer-latest.noarch.rpm    # to install katello agent from satellite server
+  ignore_errors: yes
+- name: satellite registration 8
+  shell: subscription-manager register --activationkey key-8-{{ env }} --force    # registering the server to satellite based on the kernel and environment 
+  register: kernel
+  when: ansible_distribution_major_version == "8"
+- debug: msg="{{ kernel.stdout }}"
+  when: ansible_distribution_major_version == "8"
+- name: satellite registration 9
+  shell: subscription-manager register --activationkey key-9-{{ env }}  --force    # registering the server to satellite based on the kernel and environment 
+  when: ansible_distribution_major_version == "9"
+  register: kernel
+- debug: msg="{{ kernel.stdout }}"
+  when: ansible_distribution_major_version == "9"
+- name: cleaning
+  shell: yum clean all
+- name: Repolist
+  shell: yum repolist all 
