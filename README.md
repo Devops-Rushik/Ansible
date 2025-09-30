@@ -26,8 +26,7 @@ Tasks are individual actions within a play that use modules to perform operation
 Collections are a distribution format for Ansible content. They bundle together multiple roles, modules, plugins, and other Ansible artifacts. Collections make it easier to share and reuse Ansible content.
 
 # Roles
-Ansible role provides structured way to organize and resue Ansible Automation code. It helps in reuse of tasks in any number of playbooks by just calling the roles and it   
-helps in simplyfing the complex configuration for easy understanding.
+Ansible role provides structured way to organize and resue Ansible Automation code. It helps in reuse of tasks in any number of playbooks by just calling the roles and it helps in simplyfing the complex configuration for easy understanding.
 
 # Ansible Galaxy
 Ansible Galaxy is a platform providing the features of sharing and downloading ansible roles. We can create ansible role using ansible galaxy                                                                                 ansible-galaxy init role_name
