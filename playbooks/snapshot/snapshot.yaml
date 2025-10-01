@@ -1,0 +1,20 @@
+# This playbook is used for taking, deleting and reverting snapshots from vcenter 
+# This playbook uses snapshot.sh file 
+
+---
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name:  snapshot
+    vmware_guest_snapshot:
+      name: "{{ hname }}"
+      hostname: "{{ vcenter_name }}"
+      username: "{{ user_name }}"
+      password: "{{ pass }}"
+      validate_certs: no
+      datacenter: "{{ vcenter_name }}"
+      folder: /
+      state: "{{ status }}"
+      snapshot_name: "{{ snap_name }}"
+    delegate_to: localhost
