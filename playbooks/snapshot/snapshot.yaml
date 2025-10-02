@@ -1,5 +1,6 @@
 # This playbook is used for taking, deleting and reverting snapshots from vcenter 
 # This playbook uses snapshot.sh file 
+# We need to pass vcenter name, username, server name and how much RAM should server contains while running this playbook
 
 ---
 - hosts: localhost
