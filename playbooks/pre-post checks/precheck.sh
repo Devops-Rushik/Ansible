@@ -1,3 +1,6 @@
+# This script will take necessary outputs that need to be cross checked after the activity so that there won't be any changes in the server configuration
+# Should run postcheck.sh script after the activity
+
 #!/bin/bash
 rm -f /tmp/pre_check*
 DATE=$(date '+%Y%m%d_%H%M%S')
