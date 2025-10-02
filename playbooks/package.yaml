@@ -1,0 +1,21 @@
+# This playbook is used to install the package in different flavors of linux servers
+
+---
+- hosts: web
+  gather_facts: true
+  tasks:
+  - name: install the latest version of "{{ package }}" in RHEL
+    yum:
+      name: "{{ package }}"
+      state: present
+    when: ansible_facts['distribution'] == "RedHat"
+  - name: install the latest version of "{{ package }}" in CentOS
+    dnf:
+      name: "{{ package }}"
+      state: present
+    when: ansible_facts['distribution'] == "CentOS"
+  - name: install the latest version of "{{ package }}" in Ubuntu
+    apt:
+      name: "{{ package }}"
+      state: present
+    when: ansible_facts['distribution'] == "Ubuntu"
