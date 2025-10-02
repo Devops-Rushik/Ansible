@@ -1,0 +1,27 @@
+# This playbook will run the post-checks and compare with pre-checks
+# Should run pre_check.yaml file before this playbook
+
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+   - name: copy script to remote server
+     copy:
+      src: /home/rushik-devops/postcheck.sh
+      dest: /tmp/
+      owner:  root
+      group: root
+      mode: u+rwx,g+rwx,o+rwx
+   - name: run the script and save the difference in a file
+     shell: /tmp/postcheck.sh
+   - name: Get current date and time
+     command: date "+%Y%m%d_%H%M%S"
+     register: current_date
+   - name: Read the content of pre and post checks difference file
+     slurp: 
+      src: /tmp/difference_{{ current_date }}
+     register: difference_file
+   - name: Display the pre and post checks difference
+     debug:
+      msg: "{{ difference_file.content }}"
