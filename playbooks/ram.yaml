@@ -1,0 +1,20 @@
+# This script is used to reconfigure the RAM of the server in vcenter
+# we need to pass vcenter name, username, server name and how much RAM should server contains while running this script
+
+---
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name:  RAM upgrade
+    vsphere_guest:
+      vcenter_hostname: "{{ vcenter }}"
+      username: "{{ user }}"
+      password: "{{ pass }}"      # From vault as defined
+      guest: "{{ server }}"
+      state: reconfigured
+      validate_certs: no
+      force: yes
+      vm_hardware:
+        memory_mb: "{{ ram }}"
+    delegate_to: localhost
