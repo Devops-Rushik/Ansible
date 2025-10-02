@@ -6,9 +6,9 @@
    - name: copy script to remote server
      copy:
       src: /home/rushik-devops/precheck.sh
-      dest: /root/
+      dest: /tmp/
       owner:  root
       group: root
       mode: u+rwx,g+rwx,o+rwx
    - name: run the script
-     shell: /root/precheck.sh
+     shell: /tmp/precheck.sh
