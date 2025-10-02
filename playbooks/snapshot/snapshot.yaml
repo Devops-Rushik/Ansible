@@ -11,7 +11,7 @@
       name: "{{ hname }}"
       hostname: "{{ vcenter_name }}"
       username: "{{ user_name }}"
-      password: "{{ pass }}"
+      password: "{{ pass }}"        # From vault as defined
       validate_certs: no
       datacenter: "{{ vcenter_name }}"
       folder: /
