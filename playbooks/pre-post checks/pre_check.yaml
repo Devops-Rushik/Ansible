@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+   - name: copy script to remote server
+     copy:
+      src: /home/rushik-devops/precheck.sh
+      dest: /root/
+      owner:  root
+      group: root
+      mode: u+rwx,g+rwx,o+rwx
+   - name: run the script
+     shell: /root/precheck.sh
