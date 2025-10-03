@@ -16,5 +16,5 @@
       validate_certs: no
       force: yes
       vm_hardware:
-        memory_mb: "{{ ram }}"
+        memory_mb: "{{ ram }}"  # Amount of memory in mb
     delegate_to: localhost
