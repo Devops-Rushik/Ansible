@@ -1,0 +1,9 @@
+# To shutdown particular OS servers
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Shutdown RHEL instances only
+      command: /sbin/shutdown -t now
+      when:
+       ansible_facts['os_family'] == "RedHat"
