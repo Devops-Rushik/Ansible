@@ -16,5 +16,5 @@
       validate_certs: no
       force: yes
       vm_hardware:
-        num_cpus: "{{ cpu }}"
+        num_cpus: "{{ cpu }}"    # Number of CPUs
     delegate_to: localhost
